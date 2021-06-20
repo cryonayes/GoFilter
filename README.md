@@ -12,10 +12,14 @@ cat hosts.txt | sort -u > sorted && gofilter -f sorted
 ```bash
 cat hosts.txt | waybackurls | sort -u > sorted && gofilter -f sorted
 ```
+Installation: 
+```bash
+go get github.com/cryonayes/GoFilter
+```
 
 Usage:
 ```bash
-➜  gofilter ./gofilter -h
+➜  GoFilter -h
 Filter given URLs based on query size
 
 Options:
