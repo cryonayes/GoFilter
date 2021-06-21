@@ -23,8 +23,8 @@ Usage:
 Filter given URLs based on query size
 
 Options:
-  -f,  --file         File to process
-  -c,  --count        Run analysis based on query count, otherwise query length
-  -mc, --min-count    Minimum parameter count
-  -q,  --quiet        Only print fullpath
+  -f,  --file          File to process
+  -l,  --length        Run analysis based on query length
+  -mc, --min-count     Minimum parameter count
+  -q,  --quiet         Only print fullpath
 ```
