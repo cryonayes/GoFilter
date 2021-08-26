@@ -2,28 +2,32 @@
 A tool to filter URLs by parameter count or size.
 
 
-This tool requires unique sorted URL list.  
-
-For example:
+### Examples:
 ```bash
-cat hosts.txt | sort -u > sorted && gofilter -f sorted
+cat hosts.txt | GoFilter -s
 ```
 
 ```bash
-cat hosts.txt | waybackurls | sort -u > sorted && gofilter -f sorted
-```
-Installation: 
-```bash
-go get github.com/cryonayes/GoFilter
+cat hosts.txt | waybackurls | GoFilter -s
 ```
 
-Usage:
+```bash
+GoFilter -f list.txt
+```
+
+### Installation: 
+```bash
+export GO111MODULE=off; go get github.com/cryonayes/GoFilter
+```
+
+### Usage:
 ```bash
 ➜  GoFilter -h
 Filter given URLs based on query size
 
 Options:
   -f,  --file          File to process
+  -s   --std           Read from standard input
   -l,  --length        Run analysis based on query length
   -mc, --min-count     Minimum parameter count
   -q,  --quiet         Only print fullpath
