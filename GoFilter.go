@@ -22,17 +22,25 @@ type Config struct {
 	filename      string
 	forLength     bool
 	minParamCount int
+	readFromSTDIN bool
 }
 
-func readFile(config Config) {
+func processFile(config Config) {
 
-	file, err := os.Open(config.filename)
-	if err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "Error while opening file! Make sure file exists")
-		return
+	var file *os.File
+	var readAll *bufio.Scanner
+	var err error
+
+	if !config.readFromSTDIN {
+		file, err = os.Open(config.filename)
+		if err != nil {
+			_, _ = fmt.Fprintf(os.Stderr, "Error while opening file! Make sure file exists")
+			return
+		}
+		readAll = bufio.NewScanner(file)
+	} else {
+		readAll = bufio.NewScanner(os.Stdin)
 	}
-
-	readAll := bufio.NewScanner(file)
 
 	processedURLS := make(map[string]URLData)
 
@@ -87,6 +95,7 @@ func main() {
 			"",
 			"Options:",
 			"  -f,  --file          File to process",
+			"  -s   --std           Read from standard input",
 			"  -l,  --length        Run analysis based on query length",
 			"  -mc, --min-count     Minimum parameter count",
 			"  -q,  --quiet         Only print fullpath",
@@ -100,6 +109,9 @@ func main() {
 	flag.StringVar(&mConfig.filename, "file", "", "")
 	flag.StringVar(&mConfig.filename, "f", "", "")
 
+	flag.BoolVar(&mConfig.readFromSTDIN, "s", false, "")
+	flag.BoolVar(&mConfig.readFromSTDIN, "std", false, "")
+
 	flag.BoolVar(&mConfig.quiet, "quiet", false, "")
 	flag.BoolVar(&mConfig.quiet, "q", false, "")
 
@@ -111,10 +123,10 @@ func main() {
 
 	flag.Parse()
 
-	if mConfig.filename == "" {
+	if mConfig.filename == "" && !mConfig.readFromSTDIN {
 		fmt.Println("Please provide a file")
 		return
 	}
 
-	readFile(mConfig)
+	processFile(mConfig)
 }
