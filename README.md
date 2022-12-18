@@ -17,7 +17,7 @@ GoFilter -f list.txt
 
 ### Installation: 
 ```bash
-export GO111MODULE=off; go get github.com/cryonayes/GoFilter
+go install github.com/cryonayes/GoFilter@latest
 ```
 
 ### Usage:
